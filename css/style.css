@@ -1,0 +1,557 @@
+/*! HTML5 Boilerplate v9.0.1 | MIT License | https://html5boilerplate.com/ */
+
+/* main.css 3.0.0 | MIT License | https://github.com/h5bp/main.css#readme */
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html {
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+  resize: vertical;
+}
+
+/* ==========================================================================
+   Author's custom styles — EquiBurst 2026
+   ========================================================================== */
+
+/* --- Reset & base --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  cursor: crosshair;
+}
+
+/* ─── Canvas ─────────────────────────────────────────────────────────── */
+#burst-canvas {
+  display: block;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ─── Ripple canvas ──────────────────────────────────────────────────── */
+#ripple-canvas {
+  display: block;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ─── Intro splash ───────────────────────────────────────────────────── */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: #000;
+  pointer-events: none;
+
+  animation: introOut 0.7s 2.2s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes introOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+#intro-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(2.8rem, 9vw, 7rem);
+  letter-spacing: -0.02em;
+  color: #fff;
+  animation: introTitleIn 1.1s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes introTitleIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+#intro-sub {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.7rem, 2vw, 1rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  animation: introSubIn 1s 0.8s ease both;
+}
+
+@keyframes introSubIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ─── Impact counter ─────────────────────────────────────────────────── */
+#counter {
+  position: fixed;
+  bottom: 1.6rem;
+  right: 1.8rem;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  pointer-events: none;
+  user-select: none;
+  animation: taglinePulse 1.6s 1s ease both;
+}
+
+#counter-num {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.18);
+  transition: color 0.4s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#counter-num.bump {
+  color: rgba(255, 255, 255, 0.75);
+  transform: scale(1.18);
+}
+
+#counter-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.55rem, 1.1vw, 0.7rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.18);
+}
+
+/* ─── Full-screen colour flash ───────────────────────────────────────── */
+#screen-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+
+  /* colour & gradient injected by JS */
+  background: transparent;
+  opacity: 0;
+
+  /* Flash in fast, breathe out slowly */
+  transition: opacity 0.08s ease-out;
+}
+
+#screen-flash.flashing {
+  opacity: 1;
+  transition: opacity 0.08s ease-out;
+}
+
+#screen-flash.fading {
+  opacity: 0;
+  transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Film-grain overlay ─────────────────────────────────────────────── */
+#grain {
+  position: fixed;
+  inset: -30%;          /* oversized so it can be shifted without edge gaps */
+  width: 160%;
+  height: 160%;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  animation: grainShift 0.12s steps(1) infinite;
+}
+
+@keyframes grainShift {
+  0%   { transform: translate(0,    0);   }
+  10%  { transform: translate(-3%,  2%);  }
+  20%  { transform: translate(2%,  -3%);  }
+  30%  { transform: translate(-4%,  1%);  }
+  40%  { transform: translate(3%,   3%);  }
+  50%  { transform: translate(-1%, -2%);  }
+  60%  { transform: translate(4%,  -1%);  }
+  70%  { transform: translate(-2%,  4%);  }
+  80%  { transform: translate(1%,  -4%);  }
+  90%  { transform: translate(-3%, -3%);  }
+  100% { transform: translate(0,    0);   }
+}
+
+/* ─── Quote overlay — glassmorphism card ────────────────────────────── */
+#quote-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  padding: 2rem clamp(1.5rem, 8vw, 12rem);
+  pointer-events: none;
+  user-select: none;
+
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  transition: opacity 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#quote-overlay.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+#quote-overlay.fading {
+  opacity: 0;
+  transform: translateY(-12px) scale(0.97);
+  transition: opacity 1.1s ease-in,
+              transform 1.1s ease-in;
+}
+
+/* Inner card with glass effect */
+#quote-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding: clamp(1.4rem, 4vw, 2.8rem) clamp(1.8rem, 6vw, 4.5rem);
+  border-radius: 20px;
+  max-width: min(780px, 90vw);
+
+  /* Glass */
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 8px 64px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+#quote-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.2rem, 3vw, 2.4rem);
+  line-height: 1.5;
+  text-align: center;
+  color: #fff;
+  /* colour tint injected via JS */
+}
+
+#quote-text::before { content: '\201C'; margin-right: 0.05em; }
+#quote-text::after  { content: '\201D'; margin-left:  0.05em; }
+
+#quote-author {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Thin decorative rule under the quote */
+#quote-rule {
+  width: 40px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.4;
+  /* colour set via JS to match palette */
+}
+
+/* ─── Corner tagline ─────────────────────────────────────────────────── */
+#tagline {
+  position: fixed;
+  bottom: 1.6rem;
+  left: 1.8rem;
+  z-index: 30;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.6rem, 1.3vw, 0.78rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes taglinePulse {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#tagline { animation: taglinePulse 1.6s 1s ease both; }
+
+/* ─── Idle aurora (very subtle ambient glow before first click) ──────── */
+#aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.18;
+  background: radial-gradient(ellipse 120% 60% at 50% 110%,
+    hsl(270 60% 40%) 0%,
+    hsl(210 80% 30%) 40%,
+    transparent 70%);
+  animation: auroraDrift 12s ease-in-out infinite alternate;
+}
+
+@keyframes auroraDrift {
+  0%   { transform: scaleX(1)   scaleY(1)   translateY(0);   filter: hue-rotate(0deg);   }
+  50%  { transform: scaleX(1.1) scaleY(1.05) translateY(-2%); filter: hue-rotate(30deg); }
+  100% { transform: scaleX(0.9) scaleY(1.1) translateY(2%);  filter: hue-rotate(-30deg); }
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers
+ */
+
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ *
+ * 1. For long content, line feeds are not interpreted as spaces and small width
+ *    causes content to wrap 1 word per line:
+ *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+ */
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  /* 1 */
+}
+
+/*
+ * Extends the .visually-hidden class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+.visually-hidden.focusable:active,
+.visually-hidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: inherit;
+  width: auto;
+}
+
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+  visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * The use of `table` rather than `block` is only necessary if using
+ * `::before` to contain the top-margins of child elements.
+ */
+
+.clearfix::before,
+.clearfix::after {
+  content: "";
+  display: table;
+}
+
+.clearfix::after {
+  clear: both;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+  /* Style adjustments for viewports that meet the condition */
+}
+
+@media print,
+  (-webkit-min-device-pixel-ratio: 1.25),
+  (min-resolution: 1.25dppx),
+  (min-resolution: 120dpi) {
+  /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid the additional HTTP request:
+   https://www.phpied.com/delay-loading-your-print-css/
+   ========================================================================== */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: #fff !important;
+    color: #000 !important;
+    /* Black prints faster */
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  /*
+   * Don't show links that are fragment identifiers,
+   * or use the `javascript:` pseudo protocol
+   */
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  pre {
+    white-space: pre-wrap !important;
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
