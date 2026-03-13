@@ -1,13 +1,21 @@
 {
-  "name": " ",
-  "version": "0.0.1",
-  "description": "",
+  "name": "equiburst",
+  "version": "1.0.0",
+  "description": "An interactive generative-art piece celebrating STEM thinkers and the ripple effect of individual action. Click anywhere to burst soft powder-coloured particles across a black canvas and reveal an inspirational quote from scientists and mathematicians who changed the world.",
   "private": true,
   "keywords": [
-    ""
+    "interactive-art",
+    "generative-art",
+    "canvas",
+    "particles",
+    "stem",
+    "gender-equity",
+    "javascript",
+    "animation",
+    "webpack"
   ],
-  "license": "",
-  "author": "",
+  "license": "MIT",
+  "author": "Ulku Bayraktar <ulku.bayraktar@moneytolia.com>",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open --config webpack.config.dev.js",

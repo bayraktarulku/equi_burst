@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EquiBurst</title>
+  <title>EquiBurst — Gender Equity in STEM</title>
 
   <!-- Google Fonts: clean modern pairing -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,20 @@
     rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="An interactive art piece celebrating thinkers who changed the world.">
+  <meta name="description" content="An interactive generative-art piece celebrating STEM thinkers and the ripple effect of individual action. Click to burst particles and reveal quotes from scientists who changed the world.">
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="EquiBurst — Gender Equity in STEM">
+  <meta property="og:description" content="Click anywhere. Watch the universe react. An interactive art piece celebrating every mind that dared to push further.">
+  <meta property="og:url"         content="https://bayraktarulku.github.io/equi_burst/">
+  <meta property="og:image"       content="https://bayraktarulku.github.io/equi_burst/icon.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="EquiBurst — Gender Equity in STEM">
+  <meta name="twitter:description" content="Click anywhere. Watch the universe react.">
+  <meta name="twitter:image"       content="https://bayraktarulku.github.io/equi_burst/icon.png">
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -62,6 +75,42 @@
     <span id="counter-num">0</span>
     <span id="counter-label">impacts</span>
   </div>
+
+  <!-- Top-right: About button -->
+  <button id="about-btn" aria-label="About this project">?</button>
+
+  <!-- Top-left: Share button -->
+  <button id="share-btn" aria-label="Share EquiBurst">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+    <span>Share</span>
+  </button>
+
+  <!-- About modal -->
+  <div id="about-modal" role="dialog" aria-modal="true" aria-label="About EquiBurst">
+    <div id="about-card">
+      <button id="about-close" aria-label="Close">✕</button>
+      <h2 id="about-title">EquiBurst</h2>
+      <p id="about-tagline-text">Every action leaves a mark.</p>
+      <p id="about-body">
+        Gender equity in tech isn't a single dramatic moment — it's ten thousand quiet sparks,
+        each one spreading further than the last. This piece visualises that idea.
+        The canvas starts dark. Then you act. The world responds equally to every hand that touches it.
+      </p>
+      <ul id="about-tech">
+        <li><span>Canvas API</span> particle physics + ripple rings</li>
+        <li><span>CSS</span> glassmorphism · film grain · aurora</li>
+        <li><span>Web Share API</span> native share on mobile</li>
+        <li><span>Zero</span> runtime dependencies</li>
+      </ul>
+      <p id="about-credit">Built by <strong>Ulku Bayraktar</strong> · 2026</p>
+    </div>
+  </div>
+
+  <!-- Share toast -->
+  <div id="share-toast">Link copied!</div>
 
   <script src="js/app.js"></script>
 </body>

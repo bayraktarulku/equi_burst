@@ -604,6 +604,84 @@ class CursorTrail {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
+   ABOUT MODAL
+   ═══════════════════════════════════════════════════════════════════════ */
+class AboutModal {
+  constructor() {
+    this.modal    = document.getElementById('about-modal');
+    this.openBtn  = document.getElementById('about-btn');
+    this.closeBtn = document.getElementById('about-close');
+    this._init();
+  }
+
+  _init() {
+    this.openBtn.addEventListener('click',  () => this.open());
+    this.closeBtn.addEventListener('click', () => this.close());
+
+    /* Click on backdrop closes modal */
+    this.modal.addEventListener('click', (e) => {
+      if (e.target === this.modal) this.close();
+    });
+
+    /* Escape key closes modal */
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') this.close();
+    });
+  }
+
+  open()  { this.modal.classList.add('open');    this.closeBtn.focus(); }
+  close() { this.modal.classList.remove('open'); this.openBtn.focus();  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SHARE MANAGER
+   Uses Web Share API on mobile; falls back to clipboard copy on desktop.
+   ═══════════════════════════════════════════════════════════════════════ */
+class ShareManager {
+  constructor() {
+    this.btn   = document.getElementById('share-btn');
+    this.toast = document.getElementById('share-toast');
+    this._toastTimer = null;
+
+    this.shareData = {
+      title: 'EquiBurst — Gender Equity in STEM',
+      text:  'Click anywhere. Watch the universe react. An interactive art piece celebrating every mind that dared to push further.',
+      url:   'https://bayraktarulku.github.io/equi_burst/',
+    };
+
+    this.btn.addEventListener('click', () => this._share());
+  }
+
+  async _share() {
+    /* Native share sheet (mobile / supported browsers) */
+    if (navigator.share) {
+      try {
+        await navigator.share(this.shareData);
+        return;
+      } catch (_) {
+        /* User cancelled — no fallback needed */
+        return;
+      }
+    }
+
+    /* Fallback: copy URL to clipboard */
+    try {
+      await navigator.clipboard.writeText(this.shareData.url);
+      this._showToast('Link copied!');
+    } catch (_) {
+      this._showToast('Copy: ' + this.shareData.url);
+    }
+  }
+
+  _showToast(msg) {
+    this.toast.textContent = msg;
+    this.toast.classList.add('show');
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => this.toast.classList.remove('show'), 2400);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
    BOOT
    ═══════════════════════════════════════════════════════════════════════ */
 const canvas        = document.getElementById('burst-canvas');
@@ -617,3 +695,5 @@ ps.rippleSystem = rippleSystem;
 ps.counter      = counter;
 
 new CursorTrail(ps);
+new AboutModal();
+new ShareManager();
